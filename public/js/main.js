@@ -7,8 +7,8 @@ var app = {};
 //store their input in a VAR (set default to 2016)
 // pass that variable in our getdata method -in primary_release_year key
 //make multiple ajax calls for pages 1 and 2
-
 //get data back and put all the movie objects in one array
+
 // reorganize objects in array from highest average
 //then extract the top 10 highest average and put them in another array
 // create an array of top 10 movie IDs
