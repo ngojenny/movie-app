@@ -5,6 +5,7 @@ var app = {};
 //store their input in a VAR (set default to 2016)
 // pass that variable in our getdata method -in primary_release_year key
 //make multiple ajax calls for pages 1 and 2
+
 //get data back and put all the movie objects in one array
 // reorganize objects in array from highest average
 //then extract the top 10 highest average and put them in another array
@@ -22,7 +23,8 @@ app.init = function () {
 };
 
 app.getData = function () {
-	$.ajax({
+
+	var page1 = $.ajax({
 		url: 'http://api.themoviedb.org/3/discover/movie',
 		method: 'GET',
 		dataType: 'jsonp',
@@ -33,14 +35,9 @@ app.getData = function () {
 			primary_release_year: '2015'
 
 		}
-	}).then(function (data) {
-		// console.log(data);
-		// console.log(data.results);
-		var movies1 = data.results;
-		console.log(movies1);
 	});
 
-	$.ajax({
+	var page2 = $.ajax({
 		url: 'http://api.themoviedb.org/3/discover/movie',
 		method: 'GET',
 		dataType: 'jsonp',
@@ -50,12 +47,23 @@ app.getData = function () {
 			page: '2',
 			primary_release_year: '2015'
 		}
-	}).then(function (data) {
-		// console.log(data);
-		// console.log(data.results);
-		var movies2 = data.results;
-		console.log(movies2);
 	});
+
+	$.when(page1, page2).done(function (results1, results2) {
+		console.log("its done");
+		console.log(results1[0].results);
+		var moviesPage1 = results1[0].results;
+		console.log(results2[0].results);
+		var moviesPage2 = results2[0].results;
+		app.combinePages(moviesPage1, moviesPage2);
+	});
+};
+
+//create a function that will concat the top 20 movies from page 1 and two into one array with 40 movie objects
+
+app.combinePages = function (pg1, pg2) {
+	var combinedPgsArray = pg1.concat(pg2);
+	console.log(combinedPgsArray);
 };
 
 $(document).ready(function () {
