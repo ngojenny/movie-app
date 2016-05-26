@@ -1,7 +1,6 @@
-app = {
+var app = {
 };
 
-//in html make a form at the top where they can SELECT the year
 //store their input in a VAR (set default to 2016)
 // pass that variable in our getdata method -in primary_release_year key
 //make multiple ajax calls for pages 1 and 2
