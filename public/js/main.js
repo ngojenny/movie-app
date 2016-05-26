@@ -1,6 +1,8 @@
+
 'use strict';
 
 var app = {};
+// var year = {};
 
 //store their input in a VAR (set default to 2016)
 // pass that variable in our getdata method -in primary_release_year key
@@ -18,11 +20,23 @@ var app = {};
 //use on click function on movie poster >> expand display more info box
 //populate/display title, vote_average, poster_path, overview, cast (from cast array)
 
+// USERS FORM SELECTION & SUBMIT  //
+//-------------------------------//
+
 app.init = function () {
-	app.getData();
+
+	app.getData('2016');
+
+	$('select').on('change', function () {
+		// grab user choice, store in a variable
+		var year = $('select').val();
+
+		app.getData(year);
+		// $('#movieBox').empty();
+	});
 };
 
-app.getData = function () {
+app.getData = function (year) {
 
 	var page1 = $.ajax({
 		url: 'http://api.themoviedb.org/3/discover/movie',
@@ -32,7 +46,7 @@ app.getData = function () {
 			api_key: 'f43968b7420dc8dd5dc5be75cb2d3725',
 			sort_by: 'vote_count.desc',
 			page: '1',
-			primary_release_year: '2015'
+			primary_release_year: year
 
 		}
 	});
@@ -45,15 +59,15 @@ app.getData = function () {
 			api_key: 'f43968b7420dc8dd5dc5be75cb2d3725',
 			sort_by: 'vote_count.desc',
 			page: '2',
-			primary_release_year: '2015'
+			primary_release_year: year
 		}
 	});
 
 	$.when(page1, page2).done(function (results1, results2) {
-		console.log("its done");
-		console.log(results1[0].results);
+		// console.log("its done");
+		// console.log(results1[0].results);
 		var moviesPage1 = results1[0].results;
-		console.log(results2[0].results);
+		// console.log(results2[0].results);
 		var moviesPage2 = results2[0].results;
 		app.combinePages(moviesPage1, moviesPage2);
 	});
