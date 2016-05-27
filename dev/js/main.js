@@ -34,8 +34,8 @@ app.init = function () {
 		app.getData(year);
 		$('#movieBox').empty();
 	});
-	// app.displayTopTen();
-	// app.topTen();
+	
+	
 };
 
 app.getData = function (year) {
@@ -115,6 +115,17 @@ app.displayTopTen = function (movies) {
 
 		$('#movieBox').append('<img class="moviePoster" src="' + posterLink + '" >');
 		// console.log(posterLink);
+	});
+
+	app.displayMoreInfo();
+};
+
+app.displayMoreInfo = function() {
+	$('.moviePoster').on('click', function() {
+		console.log("does this work????????????????");
+		$('.moreInfo').remove();
+		$( "<div>" ).addClass('moreInfo').insertAfter( "img:nth-of-type(5)" );
+
 	});
 };
 
