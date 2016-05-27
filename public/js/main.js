@@ -78,16 +78,16 @@ app.getData = function (year) {
 app.combinePages = function (pg1, pg2) {
 	var combinedPgsArray = pg1.concat(pg2);
 	console.log(combinedPgsArray);
-	app.sortArray(combinedPgsArray);
+	// app.sortArray(combinedPgsArray);
 };
 
 //this function will sort the array of 40 movie objects from highest vote average to lowest
-app.sortArray = function (combinedPgsArray) {
-	function compare(a, b) {
-		if (a.vote_average > b.vote_average) return -1;else if (a.vote_average < b.vote_average) return 1;else return 0;
-	}
-	console.log(combinedPgsArray.sort(compare));
-};
+// app.sortArray = function (combinedPgsArray) {
+// 	function compare(a, b) {
+// 		if (a.vote_average > b.vote_average) return -1;else if (a.vote_average < b.vote_average) return 1;else return 0;
+// 	}
+// 	console.log(combinedPgsArray.sort(compare));
+// };
 
 //this function will pull the top ten/first ten objects in array
 

@@ -99,7 +99,6 @@ app.sortArray = function(combinedPgsArray) {
 			return 0;
 	}
 	console.log(combinedPgsArray.sort(compare));
-
 }
 
 //this function will pull the top ten/first ten objects in array
