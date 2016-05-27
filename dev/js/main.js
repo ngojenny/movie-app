@@ -165,7 +165,7 @@ app.getIdArray = function(movieArray) {
 }
 
 app.getTrailers = function(idArray) {
-	var getTrailer = idArray.map(function(id) {
+	window.getTrailers = idArray.map(function(id) {
 		return $.ajax({
 			url: 'http://api.themoviedb.org/3/movie/' + id + '/videos',
 			method: 'GET',
@@ -175,13 +175,17 @@ app.getTrailers = function(idArray) {
 			}
 		});
 	});
-	
-	$.when.apply(null, getTrailer)
-		.then(function(res) {
-			console.log(res);
-			console.log('hello?');
-	});
+	$.when.apply(null, getTrailers)
+		.then(function(success) {
+			console.log('Success:');
+			console.log(success);
+		},
+		function(failure){
+			console.log('Failure:');
+			console.log(failure);
+		});
 }
+
 
 $(document).ready(function() {
 
