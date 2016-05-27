@@ -15,7 +15,9 @@ body {
 .moviePoster {
 	width: calc(20% - 20px);
 	margin: 10px;
-	
+}
+.moviePoster:hover {
+	cursor: pointer;
 
 }
 
@@ -27,3 +29,4 @@ body {
 .infoMoviePoster {
 	width:20%;
 }
+
