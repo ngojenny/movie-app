@@ -104,7 +104,7 @@ app.sortArray = function(combinedPgsArray) {
 	var topMovies = combinedPgsArray.sort(compare);
 	app.topTen(topMovies);
 
-}
+};
 
 //this function will pull the top ten/first ten objects in array
 app.topTen = function(topMovies) {
