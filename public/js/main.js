@@ -98,6 +98,7 @@ app.topTen = function (topMovies) {
 	var topTenMovies = topMovies.slice(0, 10);
 
 	app.displayTopTen(topTenMovies);
+	app.getIdArray(topTenMovies);
 };
 
 //this function will pull out the poster_path from the 10 objects within the array.
@@ -137,6 +138,35 @@ app.displayMoreInfo = function (singleMovie) {
 		$('.infoPoster').append(img);
 		$('.infoContent').append(movieTitle, description, userRating);
 		// $('.infoContent').append();
+	});
+};
+
+//This function will create an array of movie ids
+app.getIdArray = function (movieArray) {
+	console.log(movieArray);
+	var idArray = [];
+	movieArray.forEach(function (movieObject) {
+		idArray.push(movieObject.id);
+	});
+	app.getTrailers(idArray);
+	console.log(idArray);
+};
+
+app.getTrailers = function (idArray) {
+	var getTrailer = idArray.map(function (id) {
+		return $.ajax({
+			url: 'http://api.themoviedb.org/3/movie/' + id + '/videos',
+			method: 'GET',
+			dataType: 'jsonp',
+			data: {
+				api_key: 'f43968b7420dc8dd5dc5be75cb2d3725'
+			}
+		});
+	});
+
+	$.when.apply(null, getTrailer).then(function (res) {
+		console.log(res);
+		console.log('hello?');
 	});
 };
 
