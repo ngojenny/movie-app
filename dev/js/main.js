@@ -8,7 +8,6 @@ var app = {};
 // pass that variable in our getdata method -in primary_release_year key
 //make multiple ajax calls for pages 1 and 2
 
-
 //get data back and put all the movie objects in one array
 // reorganize objects in array from highest average
 //then extract the top 10 highest average and put them in another array
@@ -21,15 +20,14 @@ var app = {};
 //use on click function on movie poster >> expand display more info box
 //populate/display title, vote_average, poster_path, overview, cast (from cast array)
 
-
 // USERS FORM SELECTION & SUBMIT  //
 //-------------------------------//
 
 app.init = function () {
 
-		app.getData('2015');
+	app.getData('2015');
 
-		$('select').on('change',function () {
+	$('select').on('change', function () {
 		// grab user choice, store in a variable
 		var year = $('select').val();
 
@@ -40,9 +38,7 @@ app.init = function () {
 	
 };
 
-
-
-app.getData = function(year) {
+app.getData = function (year) {
 
 	var page1 = $.ajax({
 		url: 'http://api.themoviedb.org/3/discover/movie',
@@ -52,7 +48,7 @@ app.getData = function(year) {
 			api_key: 'f43968b7420dc8dd5dc5be75cb2d3725',
 			sort_by: 'vote_count.desc',
 			page: '1',
-			primary_release_year: year,
+			primary_release_year: year
 
 		}
 	});
@@ -65,35 +61,32 @@ app.getData = function(year) {
 			api_key: 'f43968b7420dc8dd5dc5be75cb2d3725',
 			sort_by: 'vote_count.desc',
 			page: '2',
-			primary_release_year: year,
+			primary_release_year: year
 		}
 	});
 
-	$.when(page1, page2)
-		.done(function(results1, results2){
-			// console.log("its done");
-			// console.log(results1[0].results);
-			var moviesPage1 = results1[0].results;
-			// console.log(results2[0].results);
-			var moviesPage2 = results2[0].results;
-			app.combinePages(moviesPage1, moviesPage2)
-		});
+	$.when(page1, page2).done(function (results1, results2) {
+		// console.log("its done");
+		// console.log(results1[0].results);
+		var moviesPage1 = results1[0].results;
+		// console.log(results2[0].results);
+		var moviesPage2 = results2[0].results;
+		app.combinePages(moviesPage1, moviesPage2);
+	});
 };
-
 
 //this function that will concat the top 20 movies from page 1 and two into one array with 40 movie objects
 
-app.combinePages = function(pg1, pg2) {
+app.combinePages = function (pg1, pg2) {
 	var combinedPgsArray = pg1.concat(pg2);
 	// console.log(combinedPgsArray);
-	app.sortArray(combinedPgsArray)
+	app.sortArray(combinedPgsArray);
 };
 
-
 //this function will sort the array of 40 movie objects from highest vote average to lowest
-app.sortArray = function(combinedPgsArray) {
-	function compare(a,b) {
-		if(a.vote_average > b.vote_average)
+app.sortArray = function (combinedPgsArray) {
+	function compare(a, b) {
+		if (a.vote_average > b.vote_average)
 			return -1;
 		else if (a.vote_average < b.vote_average)
 			return 1;
@@ -103,28 +96,25 @@ app.sortArray = function(combinedPgsArray) {
 	// console.log(combinedPgsArray.sort(compare));
 	var topMovies = combinedPgsArray.sort(compare);
 	app.topTen(topMovies);
-
 };
 
 //this function will pull the top ten/first ten objects in array
-app.topTen = function(topMovies) {
-	console.log(topMovies.slice(0,10));
-	var topTenMovies = topMovies.slice(0,10);
+app.topTen = function (topMovies) {
+	console.log(topMovies.slice(0, 10));
+	var topTenMovies = topMovies.slice(0, 10);
 	app.displayTopTen(topTenMovies);
 };
 
-//this function will pull out the poster_path from the 10 objects within the array. 
-//we will concat the value from the poster_path key with the rest of the image URL 
+//this function will pull out the poster_path from the 10 objects within the array.
+//we will concat the value from the poster_path key with the rest of the image URL
 // to make the src for the images
-app.displayTopTen = function(movies) {
-	movies.forEach(function(displayTopTen) {
-		
+app.displayTopTen = function (movies) {
+	movies.forEach(function (displayTopTen) {
 
 		var posterLink = 'https://image.tmdb.org/t/p/original' + displayTopTen.poster_path;
 
-		$('#movieBox').append('<img class="moviePoster" src="'+ posterLink +'" >');
+		$('#movieBox').append('<img class="moviePoster" src="' + posterLink + '" >');
 		// console.log(posterLink);
-
 	});
 
 	app.displayMoreInfo();
@@ -139,6 +129,6 @@ app.displayMoreInfo = function() {
 	});
 };
 
-$(document).ready(function() {
+$(document).ready(function () {
 	app.init();
 });
