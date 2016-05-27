@@ -99,9 +99,11 @@ app.sortArray = function (combinedPgsArray) {
 };
 
 //this function will pull the top ten/first ten objects in array
+
 app.topTen = function (topMovies) {
 	console.log(topMovies.slice(0, 10));
 	var topTenMovies = topMovies.slice(0, 10);
+
 	app.displayTopTen(topTenMovies);
 };
 
@@ -113,22 +115,47 @@ app.displayTopTen = function (movies) {
 
 		var posterLink = 'https://image.tmdb.org/t/p/original' + displayTopTen.poster_path;
 
-		$('#movieBox').append('<img class="moviePoster" src="' + posterLink + '" >');
-		// console.log(posterLink);
+
+		var img = $('<img>').addClass('moviePoster').attr('src', posterLink).data('movieObject', displayTopTen);
+
+		$('#movieBox').append(img);
+
+		// var movieTitle = displayTopTen.title;
+
 	});
+
+
 
 	app.displayMoreInfo();
 };
 
-app.displayMoreInfo = function() {
-	$('.moviePoster').on('click', function() {
-		console.log("does this work????????????????");
+app.displayMoreInfo = function(singleMovie) {
+
+	$('#movieBox').on('click', 'img', function() {
+		// console.log("does this work????????????????");
+		var movieInfo = $(this).data('movieObject');
 		$('.moreInfo').remove();
-		$( "<div>" ).addClass('moreInfo').insertAfter( "img:nth-of-type(5)" );
+		$('<div>').addClass('moreInfo').insertAfter( "img:nth-of-type(5)" );
+		$('.moreInfo').append($('<div>').addClass('infoPoster'));
+		$('.moreInfo').append($('<div>').addClass('infoContent'));
+		console.log(movieInfo.title);
+		
+		var movieTitle = $('<h3>').text(movieInfo.title)
+		var moviePoster = 'https://image.tmdb.org/t/p/original' + movieInfo.poster_path
+		var img = $('<img>').addClass('infoMoviePoster').attr('src', moviePoster)
+		var description = $('<p>').text("Description: " + movieInfo.overview)
+		var userRating = $('<p>').text(movieInfo.vote_average +"/10")
+		$('.infoPoster').append(img);
+		$('.infoContent').append(movieTitle, description, userRating);
+		// $('.infoContent').append();
 
 	});
 };
 
-$(document).ready(function () {
+
+
+
+$(document).ready(function() {
+
 	app.init();
 });
