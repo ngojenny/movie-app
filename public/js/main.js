@@ -117,22 +117,25 @@ app.displayTopTen = function (movies) {
 	app.displayMoreInfo();
 };
 
-app.displayMoreInfo = function () {
+app.displayMoreInfo = function (singleMovie) {
 
 	$('#movieBox').on('click', 'img', function () {
-		console.log("does this work????????????????");
-		console.log($(this).data('movieObject'));
+		// console.log("does this work????????????????");
+		var movieInfo = $(this).data('movieObject');
 		$('.moreInfo').remove();
-		$("<div>").addClass('moreInfo').insertAfter("img:nth-of-type(5)");
+		$('<div>').addClass('moreInfo').insertAfter("img:nth-of-type(5)");
+		$('.moreInfo').append($('<div>').addClass('infoPoster'));
+		$('.moreInfo').append($('<div>').addClass('infoContent'));
+		console.log(movieInfo.title);
 
-		// var posterLink = 'https://image.tmdb.org/t/p/original' + app.displayTopTen.poster_path;
-		// var movieTitle = $('<h3>').text(singleMovie.title);
-
-		// var moreInfoPoster = '<div class="moreInfoPoster"><img src="' + posterLink + '</div>';
-		// var content = '<div class="content">' + movieTitle + '</div>';
-
-		// $('.moreInfo').append(moreInfoPoster, content);
-		// $('.moreInfo').append(content);
+		var movieTitle = $('<h3>').text(movieInfo.title);
+		var moviePoster = 'https://image.tmdb.org/t/p/original' + movieInfo.poster_path;
+		var img = $('<img>').addClass('infoMoviePoster').attr('src', moviePoster);
+		var description = $('<p>').text("Description: " + movieInfo.overview);
+		var userRating = $('<p>').text(movieInfo.vote_average + "/10");
+		$('.infoPoster').append(img);
+		$('.infoContent').append(movieTitle, description, userRating);
+		// $('.infoContent').append();
 	});
 };
 
