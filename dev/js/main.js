@@ -108,8 +108,9 @@ app.sortArray = function(combinedPgsArray) {
 
 //this function will pull the top ten/first ten objects in array
 app.topTen = function(topMovies) {
-	console.log(topMovies.slice(0,10));
+	// console.log(topMovies.slice(0,10));
 	var topTenMovies = topMovies.slice(0,10);
+	console.log("top movies", topTenMovies);
 	app.displayTopTen(topTenMovies);
 };
 
@@ -122,22 +123,43 @@ app.displayTopTen = function(movies) {
 
 		var posterLink = 'https://image.tmdb.org/t/p/original' + displayTopTen.poster_path;
 
-		$('#movieBox').append('<img class="moviePoster" src="'+ posterLink +'" >');
-		// console.log(posterLink);
+		var img = $('<img>').addClass('moviePoster').attr('src', posterLink).data('movieObject', displayTopTen);
+
+		$('#movieBox').append(img);
+
+		// var movieTitle = displayTopTen.title;
+
 
 	});
+
+
 
 	app.displayMoreInfo();
 };
 
 app.displayMoreInfo = function() {
-	$('.moviePoster').on('click', function() {
+
+	$('#movieBox').on('click', 'img', function() {
 		console.log("does this work????????????????");
+		console.log($(this).data('movieObject'));
 		$('.moreInfo').remove();
 		$( "<div>" ).addClass('moreInfo').insertAfter( "img:nth-of-type(5)" );
 
+		// var posterLink = 'https://image.tmdb.org/t/p/original' + app.displayTopTen.poster_path;
+		// var movieTitle = $('<h3>').text(singleMovie.title);
+
+
+		// var moreInfoPoster = '<div class="moreInfoPoster"><img src="' + posterLink + '</div>';
+		// var content = '<div class="content">' + movieTitle + '</div>';
+
+
+		// $('.moreInfo').append(moreInfoPoster, content);
+		// $('.moreInfo').append(content);
+
 	});
 };
+
+
 
 $(document).ready(function() {
 	app.init();
