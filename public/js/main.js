@@ -11,12 +11,12 @@ var app = {};
 //get data back and put all the movie objects in one array
 // reorganize objects in array from highest average
 //then extract the top 10 highest average and put them in another array
-// create an array of top 10 movie IDs
-// use /movie/[id]/credits/ endpoint to take top 3 cast from all 10
-//films using 10 ajax calls
-
 //write a function to display movie posters
 //"https://image.tmdb.org/t/p/original/" + object.poster_path
+
+// create an array of top 10 movie IDs
+//films using 10 ajax calls
+// use /movie/[id]/credits/ endpoint to take top 3 cast from all 10
 //use on click function on movie poster >> expand display more info box
 //populate/display title, vote_average, poster_path, overview, cast (from cast array)
 
@@ -25,15 +25,17 @@ var app = {};
 
 app.init = function () {
 
-	app.getData('2016');
+	app.getData('2015');
 
 	$('select').on('change', function () {
 		// grab user choice, store in a variable
 		var year = $('select').val();
 
 		app.getData(year);
-		// $('#movieBox').empty();
+		$('#movieBox').empty();
 	});
+	// app.displayTopTen();
+	// app.topTen();
 };
 
 app.getData = function (year) {
@@ -77,19 +79,39 @@ app.getData = function (year) {
 
 app.combinePages = function (pg1, pg2) {
 	var combinedPgsArray = pg1.concat(pg2);
-	console.log(combinedPgsArray);
-	// app.sortArray(combinedPgsArray);
+	// console.log(combinedPgsArray);
+	app.sortArray(combinedPgsArray);
 };
 
 //this function will sort the array of 40 movie objects from highest vote average to lowest
-// app.sortArray = function (combinedPgsArray) {
-// 	function compare(a, b) {
-// 		if (a.vote_average > b.vote_average) return -1;else if (a.vote_average < b.vote_average) return 1;else return 0;
-// 	}
-// 	console.log(combinedPgsArray.sort(compare));
-// };
+app.sortArray = function (combinedPgsArray) {
+	function compare(a, b) {
+		if (a.vote_average > b.vote_average) return -1;else if (a.vote_average < b.vote_average) return 1;else return 0;
+	}
+	// console.log(combinedPgsArray.sort(compare));
+	var topMovies = combinedPgsArray.sort(compare);
+	app.topTen(topMovies);
+};
 
 //this function will pull the top ten/first ten objects in array
+app.topTen = function (topMovies) {
+	console.log(topMovies.slice(0, 10));
+	var topTenMovies = topMovies.slice(0, 10);
+	app.displayTopTen(topTenMovies);
+};
+
+//this function will pull out the poster_path from the 10 objects within the array.
+//we will concat the value from the poster_path key with the rest of the image URL
+// to make the src for the images
+app.displayTopTen = function (movies) {
+	movies.forEach(function (displayTopTen) {
+
+		var posterLink = 'https://image.tmdb.org/t/p/original' + displayTopTen.poster_path;
+
+		$('#movieBox').append('<img class="moviePoster" src="' + posterLink + '" >');
+		// console.log(posterLink);
+	});
+};
 
 $(document).ready(function () {
 	app.init();
