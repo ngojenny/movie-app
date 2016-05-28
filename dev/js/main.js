@@ -160,6 +160,7 @@ app.displayMoreInfo = function(singleMovie) {
 		$('<div>').addClass('moreInfo moreInfoBottom').insertAfter('img:nth-of-type(10)');
 		$('.moreInfoBottom').append($('<div>').addClass('infoPoster'));
 		$('.moreInfoBottom').append($('<div>').addClass('infoContent'));
+		$('.moreInfoBottom').append($('button').addClass('close'));
 		console.log(movieInfo.title);
 		
 		var movieTitle = $('<h3>').text(movieInfo.title);
@@ -168,6 +169,7 @@ app.displayMoreInfo = function(singleMovie) {
 		var description = $('<p>').text(movieInfo.overview);
 		var userRating = $('<p>').text(movieInfo.vote_average +"/10");
 		var viewTrailer = $('<p>').addClass('btn').text("View trailer");
+
 		$('.infoPoster').append(img);
 		$('.infoContent').append(movieTitle,userRating, description, viewTrailer);
 		// $('.infoContent').append();
@@ -194,6 +196,10 @@ app.getTrailers = function(movieID){
 		}); 
 	});
 }
+
+$('.close').on('click', function() {
+	$('.movieBox').remove();
+});
 
 
 //This function will append the specific trailer on the page
