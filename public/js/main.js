@@ -98,6 +98,7 @@ app.topTen = function (topMovies) {
 	var topTenMovies = topMovies.slice(0, 10);
 
 	app.displayTopTen(topTenMovies);
+	// app.getIdArray(topTenMovies);
 };
 
 //this function will pull out the poster_path from the 10 objects within the array.
@@ -134,11 +135,73 @@ app.displayMoreInfo = function (singleMovie) {
 		var img = $('<img>').addClass('infoMoviePoster').attr('src', moviePoster);
 		var description = $('<p>').text("Description: " + movieInfo.overview);
 		var userRating = $('<p>').text(movieInfo.vote_average + "/10");
+		var viewTrailer = $('<p>').addClass('btn').text("View trailer");
 		$('.infoPoster').append(img);
-		$('.infoContent').append(movieTitle, description, userRating);
+		$('.infoContent').append(movieTitle, description, userRating, viewTrailer);
 		// $('.infoContent').append();
+
+		var movieID = movieInfo.id;
+		app.getTrailers(movieID);
 	});
 };
+
+app.getTrailers = function (movieID) {
+	$('p.btn').on('click', function () {
+		$.ajax({
+			url: 'http://api.themoviedb.org/3/movie/' + movieID + '/videos',
+			method: 'GET',
+			dataType: 'jsonp',
+			data: {
+				api_key: 'f43968b7420dc8dd5dc5be75cb2d3725'
+			}
+		}).then(function (res) {
+			var youTubeKey = res.results[0].key;
+			console.log('does this work?');
+			app.displayTrailer(youTubeKey);
+		});
+	});
+};
+
+//This function will append the specific trailer on the page
+app.displayTrailer = function (youTubeKey) {
+	var videoFrame = '<iframe id="ytplayer" type="text/html" width="640" height="390" src="https://www.youtube.com/embed/' + youTubeKey + '?autoplay=1' + 'frameborder="0" />';
+	$('.infoContent').append(videoFrame);
+};
+
+//HAPPY DANCE!
+
+//This function will create an array of movie ids
+// app.getIdArray = function(movieArray) {
+// 	console.log(movieArray);
+// 	var idArray = [];
+// 	movieArray.forEach(function(movieObject) {
+// 		idArray.push(movieObject.id);
+// 	});
+// 	// app.getTrailers(idArray)
+// 	console.log(idArray);
+// }
+
+// app.getTrailers = function(idArray) {
+// 	window.getTrailers = idArray.map(function(id) {
+// 		return $.ajax({
+// 			url: 'http://api.themoviedb.org/3/movie/' + id + '/videos',
+// 			method: 'GET',
+// 			dataType: 'jsonp',
+// 			data: {
+// 				api_key: 'f43968b7420dc8dd5dc5be75cb2d3725'
+// 			}
+// 		});
+// 	});
+// 	$.when.apply(null, getTrailers)
+// 		.then(function(success) {
+// 			console.log('Success:');
+// 			console.log(success);
+// 		},
+// 		function(failure){
+// 			console.log('Failure:');
+// 			console.log(failure);
+// 		});
+// }
 
 $(document).ready(function () {
 

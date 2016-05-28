@@ -7,7 +7,14 @@ input[type=reset],input[type=submit]{-webkit-appearance:button;cursor:pointer;}b
 
 body {
 	background-color: black;
+
 }
+h1,h2,h3,h4,h5,h6,p {
+	margin: 0;
+	padding: 0;
+}
+// font-family: 'Oswald', sans-serif;
+// font-family: 'Open Sans', sans-serif;
 .wrapper {
 	width: 80%;
 	margin: 0 auto;
@@ -15,15 +22,34 @@ body {
 .moviePoster {
 	width: calc(20% - 20px);
 	margin: 10px;
-	
+}
+.moviePoster:hover {
+	cursor: pointer;
 
 }
 
 .moreInfo {
 	color:white;
-	background: pink;
+	background: grey;
+	display: flex;
+} 
+.infoPoster img {
+	width: 200px;
+	margin: 10px
+}
+.infoContent {
+	margin: 10px;
+	h3 {
+		font-family: 'Oswald', sans-serif;
+		text-transform: uppercase;
+	}
+	p {
+		font-family: 'Open Sans', sans-serif;
+	}
 }
 
-.infoMoviePoster {
-	width:20%;
+.btn {
+	background-color: red;
+	padding: 10px;
 }
+
