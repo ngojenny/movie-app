@@ -144,19 +144,17 @@ app.displayMoreInfo = function(singleMovie) {
 		var movieTitle = $('<h3>').text(movieInfo.title);
 		var moviePoster = 'https://image.tmdb.org/t/p/original' + movieInfo.poster_path;
 		var img = $('<img>').addClass('infoMoviePoster').attr('src', moviePoster);
-		var description = $('<p>').text("Description: " + movieInfo.overview);
+		var description = $('<p>').text(movieInfo.overview);
 		var userRating = $('<p>').text(movieInfo.vote_average +"/10");
 		var viewTrailer = $('<p>').addClass('btn').text("View trailer");
 		$('.infoPoster').append(img);
-		$('.infoContent').append(movieTitle, description, userRating, viewTrailer);
-		// $('.infoContent').append();
+		$('.infoContent').append(movieTitle,userRating, description, viewTrailer);
 
 		var movieID = movieInfo.id;
 		app.getTrailers(movieID);
 	});
 
 	$('#movieBox').on('click', 'img:nth-child(n+6)', function() {
-		// console.log("does this work????????????????");
 		var movieInfo = $(this).data('movieObject');
 		$('.moreInfo').remove();
 		$('<div>').addClass('moreInfo moreInfoBottom').insertAfter('img:nth-of-type(10)');
@@ -167,18 +165,17 @@ app.displayMoreInfo = function(singleMovie) {
 		var movieTitle = $('<h3>').text(movieInfo.title);
 		var moviePoster = 'https://image.tmdb.org/t/p/original' + movieInfo.poster_path;
 		var img = $('<img>').addClass('infoMoviePoster').attr('src', moviePoster);
-		var description = $('<p>').text("Description: " + movieInfo.overview);
+		var description = $('<p>').text(movieInfo.overview);
 		var userRating = $('<p>').text(movieInfo.vote_average +"/10");
 		var viewTrailer = $('<p>').addClass('btn').text("View trailer");
 		$('.infoPoster').append(img);
-		$('.infoContent').append(movieTitle, description, userRating, viewTrailer);
+		$('.infoContent').append(movieTitle,userRating, description, viewTrailer);
 		// $('.infoContent').append();
 
 		var movieID = movieInfo.id;
 		app.getTrailers(movieID);
 	});
 };
-
 
 app.getTrailers = function(movieID){
 	$('p.btn').on('click', function(){
@@ -197,6 +194,7 @@ app.getTrailers = function(movieID){
 		}); 
 	});
 }
+
 
 //This function will append the specific trailer on the page
 app.displayTrailer = function(youTubeKey){
