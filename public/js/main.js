@@ -156,7 +156,7 @@ app.displayMoreInfo = function (singleMovie) {
 		var movieTitle = $('<h3>').text(movieInfo.title);
 		var moviePoster = 'https://image.tmdb.org/t/p/original' + movieInfo.poster_path;
 		var img = $('<img>').addClass('infoMoviePoster').attr('src', moviePoster);
-		var description = $('<p>').text("Description: " + movieInfo.overview);
+		var description = $('<p>').text('Description: ' + movieInfo.overview);
 		var userRating = $('<p>').text(movieInfo.vote_average + "/10");
 		var viewTrailer = $('<p>').addClass('btn').text("View trailer");
 		$('.infoPoster').append(img);
