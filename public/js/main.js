@@ -92,10 +92,11 @@ app.sortArray = function (combinedPgsArray) {
 };
 
 //this function will pull the top ten/first ten objects in array
+
 app.topTen = function (topMovies) {
-	// console.log(topMovies.slice(0,10));
+	console.log(topMovies.slice(0, 10));
 	var topTenMovies = topMovies.slice(0, 10);
-	console.log("top movies", topTenMovies);
+
 	app.displayTopTen(topTenMovies);
 };
 
@@ -140,5 +141,6 @@ app.displayMoreInfo = function (singleMovie) {
 };
 
 $(document).ready(function () {
+
 	app.init();
 });
