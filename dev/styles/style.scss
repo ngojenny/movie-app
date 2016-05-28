@@ -23,7 +23,7 @@ h1,h2,h3,h4,h5,h6,p {
 	color: white;
 }
 h1 {
-	margin: 50px;
+	margin: 5px;
 	color: white;
 	text-align: center;
 	text-transform: uppercase;
@@ -55,9 +55,9 @@ form {
 	}
 }
 form p {
-
 	text-align: center;
 	text-transform: uppercase;
+	font-weight: 300;
 }
 
 /* RESULTS SECTION STYLINGS */
@@ -78,8 +78,8 @@ form p {
 .moreInfo {
 	display: flex;
 	color:white;
-	background: grey;
-	transition: all 0.3s;	
+	background: #919195;
+	transition: all 0.3s;
 } 
 .infoPoster img {
 	width: 200px;
@@ -89,16 +89,33 @@ form p {
 	margin: 10px;
 	h3 {
 		font-family: 'Oswald', sans-serif;
+		font-weight: 400;
 		text-transform: uppercase;
 		letter-spacing: 2px;
+		color: black;
 	}
-	p {
-		font-family: 'Open Sans', sans-serif;
-		letter-spacing: 1px;
-	}
+}
+.infoContent p { 
+	font-family: 'Open Sans', sans-serif;
+	letter-spacing: 1px;
+	margin-bottom: 20px;
 }
 
 .btn {
+	color: black;
+	text-transform: uppercase;
+	font-family: 'Oswald', sans-serif;
+	font-weight: 400;
 	padding: 10px;
+	display: inline-block;
+	background:#e7a614;
 }
-
+.btn:hover {
+		cursor: pointer;
+		box-shadow: 1px 1px 10px #e7a614;
+	}
+footer {
+	margin: 5px;
+	width: 100%;
+	text-align: center;
+}
