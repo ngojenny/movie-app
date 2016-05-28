@@ -165,26 +165,18 @@ app.getIdArray = function(movieArray) {
 }
 
 app.getTrailers = function(idArray) {
-	window.getTrailers = idArray.map(function(id) {
-		return $.ajax({
-			url: 'http://api.themoviedb.org/3/movie/' + id + '/videos',
-			method: 'GET',
-			dataType: 'jsonp',
-			data: {
-				api_key: 'f43968b7420dc8dd5dc5be75cb2d3725'
+	for (var x = 0; x <= idArray.length; x++ ) {
+		$.ajax({
+				url: 'http://api.themoviedb.org/3/movie/' + id + '/videos',
+				method: 'GET',
+				dataType: 'jsonp',
+				data: {
+					api_key: 'f43968b7420dc8dd5dc5be75cb2d3725'
+				}
+			}).then(function(data) {
+				console.log(data);
 			}
-		});
-	});
-	$.when.apply(null, getTrailers)
-		.then(function(success) {
-			console.log('Success:');
-			console.log(success);
-		},
-		function(failure){
-			console.log('Failure:');
-			console.log(failure);
-		});
-}
+)}
 
 
 $(document).ready(function() {
