@@ -170,7 +170,6 @@ app.displayMoreInfo = function (singleMovie) {
 		$('.infoPoster').append(img);
 		$('.infoContent').append(movieTitle, userRating, description, viewTrailer);
 		// $('.infoContent').append();
-
 		$.smoothScroll({
 			scrollTarget: '.moreInfoBottom',
 			speed: 600
