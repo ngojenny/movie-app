@@ -127,6 +127,7 @@ app.displayMoreInfo = function (singleMovie) {
 		$('<div>').addClass('moreInfo moreInfoTop').insertAfter('img:nth-of-type(5)');
 		$('.moreInfoTop').append($('<div>').addClass('infoPoster'));
 		$('.moreInfoTop').append($('<div>').addClass('infoContent'));
+		$('.moreInfoTop').append($('<div>').addClass('closeMoreInfo'));
 		console.log(movieInfo.title);
 
 		var movieTitle = $('<h3>').text(movieInfo.title);
@@ -135,6 +136,7 @@ app.displayMoreInfo = function (singleMovie) {
 		var description = $('<p>').text(movieInfo.overview);
 		var userRating = $('<p>').text(movieInfo.vote_average + "/10");
 		var viewTrailer = $('<p>').addClass('btn').text("View trailer");
+		var closeSym = $('.closeMoreInfo').html('<i class="fa fa-times" aria-hidden="true"></i>');
 		$('.infoPoster').append(img);
 		$('.infoContent').append(movieTitle, userRating, description, viewTrailer);
 
@@ -144,6 +146,7 @@ app.displayMoreInfo = function (singleMovie) {
 		});
 
 		var movieID = movieInfo.id;
+		closeDiv();
 		app.getTrailers(movieID);
 	});
 
@@ -154,7 +157,11 @@ app.displayMoreInfo = function (singleMovie) {
 		$('<div>').addClass('moreInfo moreInfoBottom').insertAfter('img:nth-of-type(10)');
 		$('.moreInfoBottom').append($('<div>').addClass('infoPoster'));
 		$('.moreInfoBottom').append($('<div>').addClass('infoContent'));
+<<<<<<< HEAD
 		$('.moreInfoBottom').append($('button').addClass('close'));
+=======
+		$('.moreInfoBottom').append($('<div>').addClass('closeMoreInfo'));
+>>>>>>> 834dfd98c7cf59b14f6331134534b5a9bd234db6
 		console.log(movieInfo.title);
 
 		var movieTitle = $('<h3>').text(movieInfo.title);
@@ -163,20 +170,30 @@ app.displayMoreInfo = function (singleMovie) {
 		var description = $('<p>').text(movieInfo.overview);
 		var userRating = $('<p>').text(movieInfo.vote_average + "/10");
 		var viewTrailer = $('<p>').addClass('btn').text("View trailer");
+<<<<<<< HEAD
 
+=======
+		var closeSym = $('.closeMoreInfo').html('<i class="fa fa-times" aria-hidden="true"></i>');
+>>>>>>> 834dfd98c7cf59b14f6331134534b5a9bd234db6
 		$('.infoPoster').append(img);
 		$('.infoContent').append(movieTitle, userRating, description, viewTrailer);
 		// $('.infoContent').append();
-
 		$.smoothScroll({
 			scrollTarget: '.moreInfoBottom',
 			speed: 600
 		});
 
 		var movieID = movieInfo.id;
+		closeDiv();
 		app.getTrailers(movieID);
 	});
 };
+
+function closeDiv() {
+	$('.closeMoreInfo').on('click', function () {
+		$('.moreInfo').remove();
+	});
+}
 
 app.getTrailers = function (movieID) {
 	$('p.btn').on('click', function () {
