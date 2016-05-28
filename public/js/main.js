@@ -121,13 +121,36 @@ app.displayTopTen = function (movies) {
 
 app.displayMoreInfo = function (singleMovie) {
 
-	$('#movieBox').on('click', 'img', function () {
+	$('#movieBox').on('click', 'img:nth-child(-n+5)', function () {
 		// console.log("does this work????????????????");
 		var movieInfo = $(this).data('movieObject');
 		$('.moreInfo').remove();
-		$('<div>').addClass('moreInfo').insertAfter("img:nth-of-type(5)");
-		$('.moreInfo').append($('<div>').addClass('infoPoster'));
-		$('.moreInfo').append($('<div>').addClass('infoContent'));
+		$('<div>').addClass('moreInfo moreInfoTop').insertAfter('img:nth-of-type(5)');
+		$('.moreInfoTop').append($('<div>').addClass('infoPoster'));
+		$('.moreInfoTop').append($('<div>').addClass('infoContent'));
+		console.log(movieInfo.title);
+
+		var movieTitle = $('<h3>').text(movieInfo.title);
+		var moviePoster = 'https://image.tmdb.org/t/p/original' + movieInfo.poster_path;
+		var img = $('<img>').addClass('infoMoviePoster').attr('src', moviePoster);
+		var description = $('<p>').text("Description: " + movieInfo.overview);
+		var userRating = $('<p>').text(movieInfo.vote_average + "/10");
+		var viewTrailer = $('<p>').addClass('btn').text("View trailer");
+		$('.infoPoster').append(img);
+		$('.infoContent').append(movieTitle, userRating, description, viewTrailer);
+		// $('.infoContent').append();
+
+		var movieID = movieInfo.id;
+		app.getTrailers(movieID);
+	});
+
+	$('#movieBox').on('click', 'img:nth-child(n+6)', function () {
+		// console.log("does this work????????????????");
+		var movieInfo = $(this).data('movieObject');
+		$('.moreInfo').remove();
+		$('<div>').addClass('moreInfo moreInfoBottom').insertAfter('img:nth-of-type(10)');
+		$('.moreInfoBottom').append($('<div>').addClass('infoPoster'));
+		$('.moreInfoBottom').append($('<div>').addClass('infoContent'));
 		console.log(movieInfo.title);
 
 		var movieTitle = $('<h3>').text(movieInfo.title);
