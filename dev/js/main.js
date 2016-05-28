@@ -148,7 +148,7 @@ app.displayMoreInfo = function(singleMovie) {
 		var userRating = $('<p>').text(movieInfo.vote_average +"/10");
 		var viewTrailer = $('<p>').addClass('btn').text("View trailer");
 		$('.infoPoster').append(img);
-		$('.infoContent').append(movieTitle, description, userRating, viewTrailer);
+		$('.infoContent').append(movieTitle,userRating, description, viewTrailer);
 		// $('.infoContent').append();
 
 		var movieID = movieInfo.id;
