@@ -77,17 +77,22 @@ form p {
 /* more info stylings */
 .moreInfo {
 	display: flex;
+	margin: 10px;
 	color:white;
 	background: #919195;
 	transition: all 0.3s;
 } 
 
 .infoPoster img {
-	width: 200px;
-	margin: 10px
-}
-.infoContent {
+	width: 230px;
 	margin: 10px;
+}
+
+.infoContent {
+	display: flex;
+	flex-direction: column;
+	margin: 10px;
+
 	h3 {
 		font-family: 'Oswald', sans-serif;
 		font-weight: 400;
@@ -103,12 +108,13 @@ form p {
 }
 
 .btn {
+	display: inline-block;
+	max-width: 200px;
+	padding: 10px;
 	color: black;
 	text-transform: uppercase;
 	font-family: 'Oswald', sans-serif;
 	font-weight: 400;
-	padding: 10px;
-	display: inline-block;
 	background:#e7a614;
 }
 .btn:hover {
