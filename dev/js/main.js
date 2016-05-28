@@ -200,6 +200,7 @@ app.getTrailers = function(movieID){
 //This function will append the specific trailer on the page
 app.displayTrailer = function(youTubeKey){
 	var videoFrame = '<iframe id="ytplayer" type="text/html" width="640" height="390" src="https://www.youtube.com/embed/' + youTubeKey + '?autoplay=1' + 'frameborder="0" />'
+
 	$('.infoContent').append(videoFrame);
 }
 
@@ -240,6 +241,5 @@ app.displayTrailer = function(youTubeKey){
 
 
 $(document).ready(function() {
-
 	app.init();
 });
