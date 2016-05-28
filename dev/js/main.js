@@ -133,7 +133,6 @@ app.displayTopTen = function (movies) {
 app.displayMoreInfo = function(singleMovie) {
 
 	$('#movieBox').on('click', 'img:nth-child(-n+5)', function() {
-		// console.log("does this work????????????????");
 		var movieInfo = $(this).data('movieObject');
 		$('.moreInfo').remove();
 		$('<div>').addClass('moreInfo moreInfoTop').insertAfter('img:nth-of-type(5)');
@@ -150,11 +149,17 @@ app.displayMoreInfo = function(singleMovie) {
 		$('.infoPoster').append(img);
 		$('.infoContent').append(movieTitle,userRating, description, viewTrailer);
 
+		$.smoothScroll( {
+			scrollTarget: '.moreInfoTop',
+			speed: 600
+		});
+
 		var movieID = movieInfo.id;
 		app.getTrailers(movieID);
 	});
 
 	$('#movieBox').on('click', 'img:nth-child(n+6)', function() {
+
 		var movieInfo = $(this).data('movieObject');
 		$('.moreInfo').remove();
 		$('<div>').addClass('moreInfo moreInfoBottom').insertAfter('img:nth-of-type(10)');
@@ -173,6 +178,11 @@ app.displayMoreInfo = function(singleMovie) {
 		$('.infoPoster').append(img);
 		$('.infoContent').append(movieTitle,userRating, description, viewTrailer);
 		// $('.infoContent').append();
+		
+		$.smoothScroll( {
+			scrollTarget: '.moreInfoBottom',
+			speed: 600
+		});
 
 		var movieID = movieInfo.id;
 		app.getTrailers(movieID);
@@ -206,6 +216,7 @@ $('.close').on('click', function() {
 app.displayTrailer = function(youTubeKey){
 	$('iframe').remove();
 	var videoFrame = '<iframe id="ytplayer" type="text/html" width="640" height="390" src="https://www.youtube.com/embed/' + youTubeKey + '?autoplay=1' + 'frameborder="0" />'
+
 	$('.infoContent').append(videoFrame);
 }
 
@@ -246,6 +257,5 @@ app.displayTrailer = function(youTubeKey){
 
 
 $(document).ready(function() {
-
 	app.init();
 });
