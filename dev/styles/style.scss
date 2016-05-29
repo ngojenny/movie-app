@@ -152,7 +152,6 @@ a {
 	flex-direction: column;
 	margin: 10px;
 	width:65%;
-
 	h3 {
 		font-family: $headingFont;
 		font-weight: 400;
@@ -197,7 +196,8 @@ footer {
 
 .showTrailer {
 	width:100%;
-	text-align: center;
+	text-align: right;
+	margin-right: 50px;
 }
 
 iframe {
@@ -237,7 +237,9 @@ iframe {
 			margin: 0;
 		}
 	}
-
+	.showTrailer {
+		margin-right: 0;
+	}
 	// .infoContent p:nth-of-type(1), .infoContent h3, .infoPoster {
 	// 	text-align: center;
 	// }
