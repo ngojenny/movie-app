@@ -179,3 +179,41 @@ footer {
 	font-weight: 300;
 	letter-spacing: 2px;
 }
+
+@media (max-width: 768px) {
+	.wrapper {
+		width:90%;
+	}
+
+	.moviePoster {
+		width: calc(33% - 20px);
+		margin: 10px;
+		box-shadow: 0px 0px 20px black;
+	}
+
+	.moreInfo {
+		flex-direction:column;
+		text-align: center;
+		position:relative;
+	} 
+
+	.btn {
+		margin:0 auto;
+	}
+
+	.closeMoreInfo {
+		position:absolute;
+		top:5px;
+		right:0;
+	}
+
+}
+
+/* Landscape phones and down */
+@media (max-width: 480px) {
+	.moviePoster {
+		width: calc(50% - 20px);
+		margin: 10px;
+		box-shadow: 0px 0px 20px black;
+	}
+}
