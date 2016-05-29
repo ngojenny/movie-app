@@ -30,13 +30,14 @@ app.init = function () {
 	$('select').on('change', function () {
 		// grab user choice, store in a variable
 		var year = $('select').val();
-		$.smoothScroll( {
-			scrollTarget: '#movieBox',
-			speed: 600
-		});
 
 		app.getData(year);
 		$('#movieBox').empty();
+
+		$.smoothScroll( {
+			scrollTarget: '#movieBox',
+			speed: 1000
+		});
 	});
 };
 
