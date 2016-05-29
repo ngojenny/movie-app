@@ -88,7 +88,7 @@ form p {
 }
 /* HEADER STYLINGS */
 header {
-	padding: 0px 0px 50px 0px;
+	padding: 80px 0;
 	text-align: center;
 }
 
@@ -110,20 +110,24 @@ header {
 .moreInfo {
 	display: flex;
 	margin: 10px;
+	padding: 5px;
 	color:white;
 	background: #919195;
 	transition: all 0.3s;
 } 
-.fa-times {
+
+.closeMoreInfo .fa-times {
+	font-size: 2.3rem;
 	color: black;
 	padding: 10px;
 }
+
 .fa-times:hover {
-		cursor: pointer;
+	cursor: pointer;
 }
 
 .infoPoster img {
-	width: 230px;
+	width: 260px;
 	margin: 10px;
 }
 
@@ -141,6 +145,7 @@ header {
 		color: black;
 	}
 }
+
 .infoContent p {
 	letter-spacing: 1px;
 	margin-bottom: 20px;
