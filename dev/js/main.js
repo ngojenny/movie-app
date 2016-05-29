@@ -332,7 +332,8 @@ app.displayTrailer = function(youTubeKey){
 	$('iframe').remove();
 	var videoFrame = '<iframe id="ytplayer" type="text/html" width="640" height="390" src="https://www.youtube.com/embed/' + youTubeKey + '?autoplay=1' + 'frameborder="0" />'
 
-	$('.infoContent').append(videoFrame);
+	$('.moreInfo').append('<div class="showTrailer"></div>');
+	$('.showTrailer').append(videoFrame);
 }
 
 

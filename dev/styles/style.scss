@@ -111,11 +111,13 @@ header {
 /* more info stylings */
 .moreInfo {
 	display: flex;
+	flex-wrap:wrap;
 	margin: 10px;
 	padding: 5px;
 	color:white;
 	background: #919195;
 	transition: all 0.3s;
+	position: relative;
 } 
 
 .closeMoreInfo .fa-times {
@@ -128,15 +130,21 @@ header {
 	cursor: pointer;
 }
 
+.infoPoster {
+	width:30%;
+}
+
 .infoPoster img {
-	width: 260px;
+	// max-width: 260px;
 	margin: 10px;
+	width:95%;
 }
 
 .infoContent {
 	display: flex;
 	flex-direction: column;
 	margin: 10px;
+	width:65%;
 
 	h3 {
 		font-family: $headingFont;
@@ -180,6 +188,21 @@ footer {
 	letter-spacing: 2px;
 }
 
+.showTrailer {
+	width:100%;
+	text-align: center;
+}
+
+iframe {
+	max-width:100%;
+}
+
+.closeMoreInfo {
+		position:absolute;
+		top:5px;
+		right:0;
+	}
+
 @media (max-width: 768px) {
 	.wrapper {
 		width:90%;
@@ -197,9 +220,9 @@ footer {
 		position:relative;
 	} 
 
-	.infoContent p:nth-of-type(1), .infoContent h3, .infoPoster {
-		text-align: center;
-	}
+	// .infoContent p:nth-of-type(1), .infoContent h3, .infoPoster {
+	// 	text-align: center;
+	// }
 
 	.btn {
 		margin:0 auto;
