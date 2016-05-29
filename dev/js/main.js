@@ -124,7 +124,6 @@ app.displayTopTen = function (movies) {
 		// var movieTitle = displayTopTen.title;
 
 	});
-
 	app.displayMoreInfo();
 };
 
@@ -164,8 +163,6 @@ app.displayMoreInfo = function(singleMovie) {
 		var castNameArray;
 		console.log(castNameArray);
 		var movieID = movieInfo.id;
-
-		console.log('variable' + castNameArray);
 
 		//MAKE AJAX REQUEST TO GRAB CAST INFO
 		$.ajax({
@@ -218,7 +215,36 @@ app.displayMoreInfo = function(singleMovie) {
 			speed: 600
 		});
 
+		var nameArray = [];
+		console.log(nameArray);
+		var castNameArray;
+		console.log(castNameArray);
 		var movieID = movieInfo.id;
+
+		
+		//MAKE AJAX REQUEST TO GRAB CAST INFO
+		$.ajax({
+			url: 'http://api.themoviedb.org/3/movie/' + movieID + '/credits',
+			method: 'GET',
+			dataType: 'jsonp',
+			data: {
+				api_key: 'f43968b7420dc8dd5dc5be75cb2d3725',
+			}
+		})
+		.then(function(res){
+			var castObjectArray = res.cast;
+			var slicedCast = castObjectArray.slice(0,4);
+			var castArray = slicedCast.forEach(function(castObject) {
+				nameArray.push(castObject.name);
+			});
+			castNameArray = nameArray.join(', ');
+			$('<p>').text('Starring: ' + castNameArray).insertAfter(userRating);
+			console.log('cast:does this work?');
+			console.log(nameArray);
+			console.log(castNameArray);
+
+		}); 
+
 		closeDiv()
 		app.getTrailers(movieID);
 	});
