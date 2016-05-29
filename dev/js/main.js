@@ -125,8 +125,6 @@ app.displayTopTen = function (movies) {
 
 	});
 
-
-
 	app.displayMoreInfo();
 };
 
@@ -148,15 +146,50 @@ app.displayMoreInfo = function(singleMovie) {
 		var userRating = $('<p>').text(movieInfo.vote_average +"/10");
 		var viewTrailer = $('<p>').addClass('btn').text("View trailer");
 		var closeSym = $('.closeMoreInfo').html('<i class="fa fa-times" aria-hidden="true"></i>');
+
+		//NEW VARIABLE for cast
+		// var starring = $('<p>').text('Starring: ' + castNameArray);
+		//
+
 		$('.infoPoster').append(img);
-		$('.infoContent').append(movieTitle,userRating, description, viewTrailer);
+		$('.infoContent').append(movieTitle, userRating, description, viewTrailer);
 
 		$.smoothScroll( {
 			scrollTarget: '.moreInfoTop',
 			speed: 600
 		});
 
+		var nameArray = [];
+		console.log(nameArray);
+		var castNameArray;
+		console.log(castNameArray);
 		var movieID = movieInfo.id;
+
+		console.log('variable' + castNameArray);
+
+		//MAKE AJAX REQUEST TO GRAB CAST INFO
+		$.ajax({
+			url: 'http://api.themoviedb.org/3/movie/' + movieID + '/credits',
+			method: 'GET',
+			dataType: 'jsonp',
+			data: {
+				api_key: 'f43968b7420dc8dd5dc5be75cb2d3725',
+			}
+		})
+		.then(function(res){
+			var castObjectArray = res.cast;
+			var slicedCast = castObjectArray.slice(0,4);
+			var castArray = slicedCast.forEach(function(castObject) {
+				nameArray.push(castObject.name);
+			});
+			castNameArray = nameArray.join(', ');
+			$('<p>').text('Starring: ' + castNameArray).insertAfter(userRating);
+			console.log('cast:does this work?');
+			console.log(nameArray);
+			console.log(castNameArray);
+
+		}); 
+		console.log('outside' + nameArray);
 		closeDiv()
 		app.getTrailers(movieID);
 	});
@@ -178,7 +211,7 @@ app.displayMoreInfo = function(singleMovie) {
 		var viewTrailer = $('<p>').addClass('btn').text("View trailer");
 		var closeSym = $('.closeMoreInfo').html('<i class="fa fa-times" aria-hidden="true"></i>');
 		$('.infoPoster').append(img);
-		$('.infoContent').append(movieTitle,userRating, description, viewTrailer);
+		$('.infoContent').append(movieTitle, userRating, description, viewTrailer);
 		// $('.infoContent').append();
 		$.smoothScroll( {
 			scrollTarget: '.moreInfoBottom',
@@ -196,6 +229,15 @@ function closeDiv() {
 		$('.moreInfo').remove();
 	});
 }
+
+//This function will get the top 4 cast members of the movie
+// app.getCast = function() {
+// 	$('#movieBox').on('click', 'img:nth-child(-n+5)', function() {
+// 		var movieInfo = $(this).data('movieObject');
+// 		var movieID = movieInfo.id;
+
+// 	});
+// }
 
 app.getTrailers = function(movieID){
 	$('p.btn').on('click', function(){
