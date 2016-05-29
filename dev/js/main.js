@@ -25,17 +25,19 @@ var app = {};
 
 app.init = function () {
 
-	app.getData('2015');
+	app.getData('2016');
 
 	$('select').on('change', function () {
 		// grab user choice, store in a variable
 		var year = $('select').val();
+		$.smoothScroll( {
+			scrollTarget: '#movieBox',
+			speed: 600
+		});
 
 		app.getData(year);
 		$('#movieBox').empty();
 	});
-	
-	
 };
 
 app.getData = function (year) {
