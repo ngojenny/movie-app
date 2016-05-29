@@ -146,10 +146,6 @@ app.displayMoreInfo = function(singleMovie) {
 		var viewTrailer = $('<p>').addClass('btn').text("View trailer");
 		var closeSym = $('.closeMoreInfo').html('<i class="fa fa-times" aria-hidden="true"></i>');
 
-		//NEW VARIABLE for cast
-		// var starring = $('<p>').text('Starring: ' + castNameArray);
-		//
-
 		$('.infoPoster').append(img);
 		$('.infoContent').append(movieTitle, userRating, description, viewTrailer);
 
@@ -221,7 +217,7 @@ app.displayMoreInfo = function(singleMovie) {
 		console.log(castNameArray);
 		var movieID = movieInfo.id;
 
-		
+
 		//MAKE AJAX REQUEST TO GRAB CAST INFO
 		$.ajax({
 			url: 'http://api.themoviedb.org/3/movie/' + movieID + '/credits',
