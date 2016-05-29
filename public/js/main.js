@@ -128,7 +128,15 @@ app.displayMoreInfo = function (singleMovie) {
 	$('#movieBox').on('click', 'img:nth-child(-n+5)', function () {
 		var movieInfo = $(this).data('movieObject');
 		$('.moreInfo').remove();
-		$('<div>').addClass('moreInfo moreInfoTop').insertAfter('img:nth-of-type(5)');
+		var screen = $(window);
+
+		if (screen.width() < 480) {
+			$('<div>').addClass('moreInfo moreInfoTop').insertAfter(event.target);
+			// } else if () {
+		} else {
+				$('<div>').addClass('moreInfo moreInfoTop').insertAfter('img:nth-of-type(5)');
+			};
+
 		$('.moreInfoTop').append($('<div>').addClass('infoPoster'));
 		$('.moreInfoTop').append($('<div>').addClass('infoContent'));
 		$('.moreInfoTop').append($('<div>').addClass('closeMoreInfo'));
@@ -194,7 +202,15 @@ app.displayMoreInfo = function (singleMovie) {
 	$('#movieBox').on('click', 'img:nth-child(n+6)', function () {
 		var movieInfo = $(this).data('movieObject');
 		$('.moreInfo').remove();
-		$('<div>').addClass('moreInfo moreInfoBottom').insertAfter('img:nth-of-type(10)');
+		var screen = $(window);
+
+		if (screen.width() < 480) {
+			$('<div>').addClass('moreInfo moreInfoBottom').insertAfter(event.target);
+			// } else if () {
+		} else {
+				$('<div>').addClass('moreInfo moreInfoBottom').insertAfter('img:nth-of-type(10)');
+			};
+
 		$('.moreInfoBottom').append($('<div>').addClass('infoPoster'));
 		$('.moreInfoBottom').append($('<div>').addClass('infoContent'));
 
