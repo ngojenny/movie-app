@@ -94,6 +94,13 @@ header {
 	height: 100vh;
 }
 
+a {
+	font-family: $bodyFont;
+	color: white;
+	text-decoration: none;
+	text-transform: uppercase;
+}
+
 /* RESULTS SECTION STYLINGS */
 
 /* top ten movies */
