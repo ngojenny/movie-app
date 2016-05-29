@@ -115,7 +115,6 @@ app.displayTopTen = function (movies) {
 
 		// var movieTitle = displayTopTen.title;
 	});
-
 	app.displayMoreInfo();
 };
 
@@ -137,6 +136,7 @@ app.displayMoreInfo = function (singleMovie) {
 		var userRating = $('<p>').text(movieInfo.vote_average + "/10");
 		var viewTrailer = $('<p>').addClass('btn').text("View trailer");
 		var closeSym = $('.closeMoreInfo').html('<i class="fa fa-times" aria-hidden="true"></i>');
+
 		$('.infoPoster').append(img);
 		$('.infoContent').append(movieTitle, userRating, description, viewTrailer);
 
@@ -145,13 +145,48 @@ app.displayMoreInfo = function (singleMovie) {
 			speed: 600
 		});
 
+		var nameArray = [];
+		console.log(nameArray);
+		var castNameArray;
+		console.log(castNameArray);
 		var movieID = movieInfo.id;
+
+		//MAKE AJAX REQUEST TO GRAB CAST & DIRECTOR INFO
+		$.ajax({
+			url: 'http://api.themoviedb.org/3/movie/' + movieID + '/credits',
+			method: 'GET',
+			dataType: 'jsonp',
+			data: {
+				api_key: 'f43968b7420dc8dd5dc5be75cb2d3725'
+			}
+		}).then(function (res) {
+			var castObjectArray = res.cast;
+			var slicedCast = castObjectArray.slice(0, 4);
+			var castArray = slicedCast.forEach(function (castObject) {
+				nameArray.push(castObject.name);
+			});
+			castNameArray = nameArray.join(', ');
+			$('<p>').text('Starring: ' + castNameArray).insertBefore(description);
+			console.log('cast:does this work?');
+			console.log(nameArray);
+			console.log(castNameArray);
+			var crewObjectArray = res.crew;
+			console.log(crewObjectArray);
+
+			//Get director info and display on page
+			var getDirector = crewObjectArray.forEach(function (castObject) {
+				if (castObject.job === "Director") {
+					var director = castObject.name;
+					$('<p>').text('Director: ' + director).insertAfter(userRating);
+				}
+			});
+		});
+		console.log('outside' + nameArray);
 		closeDiv();
 		app.getTrailers(movieID);
 	});
 
 	$('#movieBox').on('click', 'img:nth-child(n+6)', function () {
-
 		var movieInfo = $(this).data('movieObject');
 		$('.moreInfo').remove();
 		$('<div>').addClass('moreInfo moreInfoBottom').insertAfter('img:nth-of-type(10)');
@@ -175,7 +210,43 @@ app.displayMoreInfo = function (singleMovie) {
 			speed: 600
 		});
 
+		var nameArray = [];
+		console.log(nameArray);
+		var castNameArray;
+		console.log(castNameArray);
 		var movieID = movieInfo.id;
+
+		//MAKE AJAX REQUEST TO GRAB CAST AND DIRECTOR INFO
+		$.ajax({
+			url: 'http://api.themoviedb.org/3/movie/' + movieID + '/credits',
+			method: 'GET',
+			dataType: 'jsonp',
+			data: {
+				api_key: 'f43968b7420dc8dd5dc5be75cb2d3725'
+			}
+		}).then(function (res) {
+			var castObjectArray = res.cast;
+			var slicedCast = castObjectArray.slice(0, 4);
+			var castArray = slicedCast.forEach(function (castObject) {
+				nameArray.push(castObject.name);
+			});
+			castNameArray = nameArray.join(', ');
+			$('<p>').text('Starring: ' + castNameArray).insertBefore(description);
+			console.log('cast:does this work?');
+			console.log(nameArray);
+			console.log(castNameArray);
+			var crewObjectArray = res.crew;
+			console.log(crewObjectArray);
+
+			//Get director info and display on page
+			var getDirector = crewObjectArray.forEach(function (castObject) {
+				if (castObject.job === "Director") {
+					var director = castObject.name;
+					$('<p>').text('Director: ' + director).insertAfter(userRating);
+				}
+			});
+		});
+
 		closeDiv();
 		app.getTrailers(movieID);
 	});
@@ -186,6 +257,15 @@ function closeDiv() {
 		$('.moreInfo').remove();
 	});
 }
+
+//This function will get the top 4 cast members of the movie
+// app.getCast = function() {
+// 	$('#movieBox').on('click', 'img:nth-child(-n+5)', function() {
+// 		var movieInfo = $(this).data('movieObject');
+// 		var movieID = movieInfo.id;
+
+// 	});
+// }
 
 app.getTrailers = function (movieID) {
 	$('p.btn').on('click', function () {
