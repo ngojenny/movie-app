@@ -160,7 +160,7 @@ app.displayMoreInfo = function(singleMovie) {
 		console.log(castNameArray);
 		var movieID = movieInfo.id;
 
-		//MAKE AJAX REQUEST TO GRAB CAST INFO
+		//MAKE AJAX REQUEST TO GRAB CAST & DIRECTOR INFO
 		$.ajax({
 			url: 'http://api.themoviedb.org/3/movie/' + movieID + '/credits',
 			method: 'GET',
@@ -176,10 +176,20 @@ app.displayMoreInfo = function(singleMovie) {
 				nameArray.push(castObject.name);
 			});
 			castNameArray = nameArray.join(', ');
-			$('<p>').text('Starring: ' + castNameArray).insertAfter(userRating);
+			$('<p>').text('Starring: ' + castNameArray).insertBefore(description);
 			console.log('cast:does this work?');
 			console.log(nameArray);
 			console.log(castNameArray);
+			var crewObjectArray = res.crew;
+			console.log(crewObjectArray);
+
+			//Get director info and display on page
+			var getDirector = crewObjectArray.forEach(function(castObject) {
+				if(castObject.job === "Director") {
+					var director = castObject.name;
+					$('<p>').text('Director: ' + director).insertAfter(userRating);
+				}
+			});
 
 		}); 
 		console.log('outside' + nameArray);
@@ -218,7 +228,7 @@ app.displayMoreInfo = function(singleMovie) {
 		var movieID = movieInfo.id;
 
 
-		//MAKE AJAX REQUEST TO GRAB CAST INFO
+		//MAKE AJAX REQUEST TO GRAB CAST AND DIRECTOR INFO
 		$.ajax({
 			url: 'http://api.themoviedb.org/3/movie/' + movieID + '/credits',
 			method: 'GET',
@@ -234,11 +244,20 @@ app.displayMoreInfo = function(singleMovie) {
 				nameArray.push(castObject.name);
 			});
 			castNameArray = nameArray.join(', ');
-			$('<p>').text('Starring: ' + castNameArray).insertAfter(userRating);
+			$('<p>').text('Starring: ' + castNameArray).insertBefore(description);
 			console.log('cast:does this work?');
 			console.log(nameArray);
 			console.log(castNameArray);
+			var crewObjectArray = res.crew;
+			console.log(crewObjectArray);
 
+			//Get director info and display on page
+			var getDirector = crewObjectArray.forEach(function(castObject) {
+				if(castObject.job === "Director") {
+					var director = castObject.name;
+					$('<p>').text('Director: ' + director).insertAfter(userRating);
+				}
+			});
 		}); 
 
 		closeDiv()
