@@ -162,7 +162,6 @@ app.displayMoreInfo = function(singleMovie) {
 	});
 
 	$('#movieBox').on('click', 'img:nth-child(n+6)', function() {
-
 		var movieInfo = $(this).data('movieObject');
 		$('.moreInfo').remove();
 		$('<div>').addClass('moreInfo moreInfoBottom').insertAfter('img:nth-of-type(10)');
