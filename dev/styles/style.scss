@@ -69,6 +69,7 @@ p {
 }
 .wrapper {
 	width: 80%;
+	max-width: 980px;
 	margin: 0 auto;
 }
 
@@ -76,6 +77,8 @@ p {
 .formContainer {
 	width: 100%;
 }
+
+
 form {
 	width: 100%;
 	select {
@@ -84,6 +87,7 @@ form {
 	width: 30%;
 	}
 }
+
 form p {
 	margin-bottom: 10px;
 	text-align: center;
@@ -91,6 +95,7 @@ form p {
 	font-weight: 300;
 	letter-spacing: 2px;
 }
+
 /* HEADER STYLINGS */
 header {
 	padding: 80px 0;
@@ -201,7 +206,7 @@ footer {
 .showTrailer {
 	width:100%;
 	text-align: right;
-	margin-right: 50px;
+	margin: 0 20px;
 }
 
 iframe {
@@ -216,8 +221,7 @@ iframe {
 
 @media (max-width: 768px) {
 	header {
-		height: auto;
-		padding: 200px 0;
+		padding: 250px 0;
 	}
 	
 	select.releaseYear {
@@ -279,6 +283,11 @@ iframe {
 		margin:0 auto;
 	}
 
+	.showTrailer {
+		text-align: center;
+		margin: 5px 0;
+	}
+	
 	.closeMoreInfo {
 		position:absolute;
 		top:5px;
@@ -295,7 +304,6 @@ iframe {
 /* Landscape phones and down */
 @media (max-width: 480px) {
 	header {
-		height: 100vh;
 		padding: 80px 0;
 	}
 
@@ -328,6 +336,7 @@ iframe {
 			margin-bottom: 10px;
 		}
 	}
+
 
 	iframe {
 		width: 100%;
