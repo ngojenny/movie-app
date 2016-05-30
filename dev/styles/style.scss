@@ -55,6 +55,10 @@ h2 {
 	letter-spacing: 5px;
 }
 
+p {
+	line-height: 1.5;
+}
+
 .logo {
 	width: 100%;
 	img {
@@ -211,6 +215,16 @@ iframe {
 	}
 
 @media (max-width: 768px) {
+	header {
+		height: auto;
+		padding: 200px 0;
+	}
+	
+	select.releaseYear {
+		color: white;
+		width: 200px;
+	}
+
 	.wrapper {
 		width:90%;
 	}
@@ -228,6 +242,20 @@ iframe {
 		padding: 20px;
 	} 
 
+	#movieBox .moreInfoTop, #movieBox .moreInfoBottom {
+		width: 85%;	
+		padding: 10px;
+		position: fixed;
+		top: 50px;
+		left: 50px;
+		right: 50px;
+		bottom: auto;
+		font-size: 80%; 
+		p {
+			margin: 3px 0;
+			line-height: 1.5;
+		}
+	}
 	
 	.infoPoster {
 		width: calc(50% - 20px);
@@ -266,20 +294,39 @@ iframe {
 
 /* Landscape phones and down */
 @media (max-width: 480px) {
+	header {
+		height: 100vh;
+		padding: 80px 0;
+	}
 
 	.moviePoster {
-		width: calc(100% - 20px);
-		margin: 10px;
+		width: 100%;
+		margin: 0 0 20px;
 		box-shadow: 0px 0px 20px black;
 	}
 
 	.moreInfo {
 		flex-direction: column;
+		margin: 0;
+
+	}
+
+	#movieBox .moreInfoTop, #movieBox .moreInfoBottom {
+		width: 100%;	
+		position: relative;
+		left: 0;
+		top: 0;
+		font-size: 90%; 
+		padding: 20px;
+		margin-bottom: 20px;
 	}
 
 	.infoContent {
 		width: 100%;
 		margin: 0;
+		p {
+			margin-bottom: 10px;
+		}
 	}
 
 	iframe {
