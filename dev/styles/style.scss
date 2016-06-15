@@ -100,7 +100,7 @@ form p {
 header {
 	padding: 80px 0;
 	text-align: center;
-	height: 100vh;
+	min-height: 100vh;
 }
 
 a {
@@ -108,6 +108,12 @@ a {
 	color: white;
 	text-decoration: none;
 	text-transform: uppercase;
+}
+
+.subtle {
+	padding-top: 10px;
+	font-size: 1.1rem;
+	color: #919195;
 }
 
 /* RESULTS SECTION STYLINGS */
@@ -133,7 +139,7 @@ a {
 	color:white;
 	background: #919195;
 	transition: all 0.3s;
-	position: relative;
+	// position: relative;
 } 
 
 .closeMoreInfo .fa-times {
@@ -206,11 +212,27 @@ footer {
 .showTrailer {
 	width:100%;
 	text-align: right;
-	margin: 0 20px;
+	// margin: 0 20px;
+	/* new things */
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(33, 33, 33, 0.95);
+}
+
+.hideTrailer {
+	display: none;
 }
 
 iframe {
 	max-width:100%;
+	/* new things */
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
 }
 
 .closeMoreInfo {
@@ -218,6 +240,29 @@ iframe {
 		top:5px;
 		right:0;
 	}
+
+	/* loading wheel */
+	.hidden {
+		display: none;
+	}
+	#loadingAnimation {
+		margin: 0 auto;
+	}
+
+.loader {
+	border: 6px solid #919195;
+	border-top: 6px solid $accentColour;
+	border-radius: 50%;
+	width: 30px;
+	height: 30px;
+	animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+	0% { transform: rotate(0deg); }
+	100% { transform: rotate(360deg); }
+}
+
 
 @media (max-width: 768px) {
 	header {
@@ -285,7 +330,6 @@ iframe {
 
 	.showTrailer {
 		text-align: center;
-		margin: 5px 0;
 	}
 	
 	.closeMoreInfo {
@@ -344,4 +388,20 @@ iframe {
 	    // height: 190px;
 	}
 }
+
+
+@media (max-width: 320px) {
+	header {
+		padding: 60px 0;
+	}
+	.logo {
+		h1 {
+			font-size: 5.4rem;
+		}
+		h2 {
+			font-size: 1.7rem;
+		}
+	}
+}
+
 

@@ -25,10 +25,11 @@ var app = {};
 
 app.init = function () {
 
-	app.getData('2016');
+	app.getData('2015');
 
 	$('select').on('change', function () {
 		// grab user choice, store in a variable
+		$('#loadingAnimation').removeClass('hidden');
 		var year = $('select').val();
 
 		app.getData(year);
@@ -122,6 +123,7 @@ app.displayTopTen = function (movies) {
 
 		var img = $('<img>').addClass('moviePoster').attr('src', posterLink).data('movieObject', displayTopTen);
 
+		$('#loadingAnimation').addClass('hidden');
 		$('#movieBox').append(img);
 
 		// var movieTitle = displayTopTen.title;
