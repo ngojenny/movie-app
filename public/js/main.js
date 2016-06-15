@@ -325,12 +325,12 @@ app.displayTrailer = function (youTubeKey) {
 };
 
 // when user clicks on showTrailer it will exit theater movie
-app.hideTheater = function() {
-$('.showTrailer').on('click', function(){
-	console.log('ive been clicked');
-	$(this).addClass('hideTrailer');
-	$(this).empty();
-});
+app.hideTheater = function () {
+	$('.showTrailer').on('click', function () {
+		console.log('ive been clicked');
+		$(this).addClass('hideTrailer');
+		$(this).empty();
+	});
 };
 
 $(document).ready(function () {

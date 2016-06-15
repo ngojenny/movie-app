@@ -328,16 +328,24 @@ $('.close').on('click', function() {
 	$('.movieBox').remove();
 });
 
-
 //This function will append the specific trailer on the page
-app.displayTrailer = function(youTubeKey){
+app.displayTrailer = function (youTubeKey) {
 	$('iframe').remove();
-	var videoFrame = '<iframe id="ytplayer" type="text/html" width="640" height="390" src="https://www.youtube.com/embed/' + youTubeKey + '?autoplay=1' + 'frameborder="0" />'
+	var videoFrame = '<iframe id="ytplayer" type="text/html" width="640" height="390" src="https://www.youtube.com/embed/' + youTubeKey + '?autoplay=1' + 'frameborder="0" />';
 
 	$('.moreInfo').append('<div class="showTrailer"></div>');
 	$('.showTrailer').append(videoFrame);
-}
+	app.hideTheater();
+};
 
+// when user clicks on showTrailer it will exit theater movie
+app.hideTheater = function() {
+$('.showTrailer').on('click', function(){
+	console.log('ive been clicked');
+	$(this).addClass('hideTrailer');
+	$(this).empty();
+});
+};
 
 
 
