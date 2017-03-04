@@ -22,6 +22,7 @@ var app = {};
 //-------------------------------//
 
 app.init = function () {
+	app.alreadyPicked = false;
 	app.getAllYears();
 
 	var lastYear = new Date().getFullYear() - 1;
@@ -37,6 +38,7 @@ app.init = function () {
 	});
 
 	$('select').on('change', function () {
+		app.alreadyPicked = true;
 		$('#movieBox').empty();
 		$('#loadingAnimation').removeClass('hidden');
 		var year = $('select').val();
@@ -134,10 +136,12 @@ app.displayTopTen = function (movies) {
 		loadedPosters++;
 		if (loadedPosters === 1) {
 			//scroll to movie box once some things are loaded
-			$.smoothScroll({
-				scrollTarget: '#movieBox',
-				speed: 1000
-			});
+			if (app.alreadyPicked) {
+				$.smoothScroll({
+					scrollTarget: '#movieBox',
+					speed: 1000
+				});
+			}
 		}
 		if (loadedPosters === count) {
 			//remove loading animation once things are loaded
