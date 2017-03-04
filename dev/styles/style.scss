@@ -98,7 +98,14 @@ form p {
 
 /* HEADER STYLINGS */
 header {
-	padding: 80px 0;
+	.wrapper {
+		position: absolute;
+		top: 45%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		margin: 0;
+		padding: 0;
+	}
 	text-align: center;
 	min-height: 100vh;
 }
@@ -117,7 +124,9 @@ a {
 }
 
 /* RESULTS SECTION STYLINGS */
-
+.results {
+	padding-bottom: 70px;
+}
 /* top ten movies */
 .moviePoster {
 	width: calc(20% - 20px);

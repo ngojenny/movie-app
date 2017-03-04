@@ -1,8 +1,6 @@
-
 'use strict';
 
 var app = {};
-// var year = {};
 
 //store their input in a VAR (set default to 2016)
 // pass that variable in our getdata method -in primary_release_year key
@@ -24,22 +22,40 @@ var app = {};
 //-------------------------------//
 
 app.init = function () {
+	app.getAllYears();
 
-	app.getData('2015');
+	var lastYear = new Date().getFullYear() - 1;
+	if(lastYear) {
+		app.getData(lastYear);
+	}
+
+	var releaseYearElements = document.querySelectorAll('#releaseYearDropdown option');
+	releaseYearElements.forEach(function(option){
+		if(option.value === lastYear.toString()) {
+			option.selected = true;
+		}
+	});
 
 	$('select').on('change', function () {
-		// grab user choice, store in a variable
+		$('#movieBox').empty();
 		$('#loadingAnimation').removeClass('hidden');
 		var year = $('select').val();
 
 		app.getData(year);
-		$('#movieBox').empty();
-
-		$.smoothScroll( {
-			scrollTarget: '#movieBox',
-			speed: 1000
-		});
 	});
+};
+
+// automatically generate years from current year to 2000;
+
+app.getAllYears = function () {
+	var currentYear = new Date().getFullYear();
+	var yearArray = [];
+
+	for (var i = currentYear; i >= 1980; i-- ) {
+		yearArray.push('<option value="'+ i + '">' + i + '</option>');
+	}
+
+	$('#releaseYearDropdown').append(yearArray);
 };
 
 app.getData = function (year) {
@@ -70,10 +86,7 @@ app.getData = function (year) {
 	});
 
 	$.when(page1, page2).done(function (results1, results2) {
-		// console.log("its done");
-		// console.log(results1[0].results);
 		var moviesPage1 = results1[0].results;
-		// console.log(results2[0].results);
 		var moviesPage2 = results2[0].results;
 		app.combinePages(moviesPage1, moviesPage2);
 	});
@@ -83,7 +96,6 @@ app.getData = function (year) {
 
 app.combinePages = function (pg1, pg2) {
 	var combinedPgsArray = pg1.concat(pg2);
-	// console.log(combinedPgsArray);
 	app.sortArray(combinedPgsArray);
 };
 
@@ -97,7 +109,6 @@ app.sortArray = function (combinedPgsArray) {
 		else
 			return 0;
 	}
-	// console.log(combinedPgsArray.sort(compare));
 	var topMovies = combinedPgsArray.sort(compare);
 	app.topTen(topMovies);
 };
@@ -105,11 +116,9 @@ app.sortArray = function (combinedPgsArray) {
 //this function will pull the top ten/first ten objects in array
 
 app.topTen = function (topMovies) {
-	console.log(topMovies.slice(0, 10));
 	var topTenMovies = topMovies.slice(0, 10);
 
 	app.displayTopTen(topTenMovies);
-	// app.getIdArray(topTenMovies);
 };
 
 //this function will pull out the poster_path from the 10 objects within the array.
@@ -117,18 +126,30 @@ app.topTen = function (topMovies) {
 // to make the src for the images
 app.displayTopTen = function (movies) {
 	movies.forEach(function (displayTopTen) {
-
 		var posterLink = 'https://image.tmdb.org/t/p/original' + displayTopTen.poster_path;
-
-
 		var img = $('<img>').addClass('moviePoster').attr('src', posterLink).data('movieObject', displayTopTen);
-
-		$('#loadingAnimation').addClass('hidden');
 		$('#movieBox').append(img);
-
-		// var movieTitle = displayTopTen.title;
-
 	});
+
+	var $posters = $('#movieBox').find('img');
+	var count = $posters.length;
+	var loadedPosters = 0;
+
+	$posters.on('load', function(){
+		loadedPosters++;
+		if(loadedPosters === 1) {
+		//scroll to movie box once some things are loaded
+			$.smoothScroll( {
+				scrollTarget: '#movieBox',
+				speed: 1000
+			});
+		}
+		if(loadedPosters === count) {
+			//remove loading animation once things are loaded
+			$('#loadingAnimation').addClass('hidden');
+		}
+	});
+	
 	app.displayMoreInfo();
 };
 
@@ -141,7 +162,6 @@ app.displayMoreInfo = function(singleMovie) {
 
 		if (screen.width() < 480) {
 			$('<div>').addClass('moreInfo moreInfoTop').insertAfter(event.target);
-		// } else if () {
 
 		} else {
 			$('<div>').addClass('moreInfo moreInfoTop').insertAfter('img:nth-of-type(5)');
@@ -150,7 +170,6 @@ app.displayMoreInfo = function(singleMovie) {
 		$('.moreInfoTop').append($('<div>').addClass('infoPoster'));
 		$('.moreInfoTop').append($('<div>').addClass('infoContent'));
 		$('.moreInfoTop').append($('<div>').addClass('closeMoreInfo'));
-		console.log(movieInfo.title);
 		
 		var movieTitle = $('<h3>').text(movieInfo.title);
 		var moviePoster = 'https://image.tmdb.org/t/p/original' + movieInfo.poster_path;
@@ -169,9 +188,7 @@ app.displayMoreInfo = function(singleMovie) {
 		});
 
 		var nameArray = [];
-		console.log(nameArray);
 		var castNameArray;
-		console.log(castNameArray);
 		var movieID = movieInfo.id;
 
 		//MAKE AJAX REQUEST TO GRAB CAST & DIRECTOR INFO
@@ -191,22 +208,28 @@ app.displayMoreInfo = function(singleMovie) {
 			});
 			castNameArray = nameArray.join(', ');
 			$('<p>').text('Starring: ' + castNameArray).insertBefore(description);
-			console.log('cast:does this work?');
-			console.log(nameArray);
-			console.log(castNameArray);
 			var crewObjectArray = res.crew;
-			console.log(crewObjectArray);
+
+			var directors = [];
+			var directorsString = '';
 
 			//Get director info and display on page
 			var getDirector = crewObjectArray.forEach(function(castObject) {
 				if(castObject.job === "Director") {
-					var director = castObject.name;
-					$('<p>').text('Director: ' + director).insertAfter(userRating);
+					directors.push(castObject.name);
 				}
 			});
 
+			//handle multiple directors
+			if(directors.length > 1) {
+				directorsString = directors.join(', ');
+			} else {
+				directorsString = directors[0];
+			}
+
+			$('<p>').text('Director: ' + directorsString).insertAfter(userRating);
+
 		}); 
-		console.log('outside' + nameArray);
 		closeDiv()
 		app.getTrailers(movieID);
 	});
@@ -218,7 +241,6 @@ app.displayMoreInfo = function(singleMovie) {
 
 		if (screen.width() < 480) {
 			$('<div>').addClass('moreInfo moreInfoBottom').insertAfter(event.target);
-		// } else if () {
 
 		} else {
 			$('<div>').addClass('moreInfo moreInfoBottom').insertAfter('img:nth-of-type(10)');
@@ -228,7 +250,6 @@ app.displayMoreInfo = function(singleMovie) {
 		$('.moreInfoBottom').append($('<div>').addClass('infoContent'));
 
 		$('.moreInfoBottom').append($('<div>').addClass('closeMoreInfo'));
-		console.log(movieInfo.title);
 		
 		var movieTitle = $('<h3>').text(movieInfo.title);
 		var moviePoster = 'https://image.tmdb.org/t/p/original' + movieInfo.poster_path;
@@ -240,16 +261,13 @@ app.displayMoreInfo = function(singleMovie) {
 		var closeSym = $('.closeMoreInfo').html('<i class="fa fa-times" aria-hidden="true"></i>');
 		$('.infoPoster').append(img);
 		$('.infoContent').append(movieTitle, userRating, description, viewTrailer);
-		// $('.infoContent').append();
 		$.smoothScroll( {
 			scrollTarget: '.moreInfoBottom',
 			speed: 600
 		});
 
 		var nameArray = [];
-		console.log(nameArray);
 		var castNameArray;
-		console.log(castNameArray);
 		var movieID = movieInfo.id;
 
 
@@ -270,11 +288,7 @@ app.displayMoreInfo = function(singleMovie) {
 			});
 			castNameArray = nameArray.join(', ');
 			$('<p>').text('Starring: ' + castNameArray).insertBefore(description);
-			console.log('cast:does this work?');
-			console.log(nameArray);
-			console.log(castNameArray);
 			var crewObjectArray = res.crew;
-			console.log(crewObjectArray);
 
 			//Get director info and display on page
 			var getDirector = crewObjectArray.forEach(function(castObject) {
@@ -296,15 +310,6 @@ function closeDiv() {
 	});
 }
 
-//This function will get the top 4 cast members of the movie
-// app.getCast = function() {
-// 	$('#movieBox').on('click', 'img:nth-child(-n+5)', function() {
-// 		var movieInfo = $(this).data('movieObject');
-// 		var movieID = movieInfo.id;
-
-// 	});
-// }
-
 app.getTrailers = function(movieID){
 	$('p.btn').on('click', function(){
 		$.ajax({
@@ -316,9 +321,7 @@ app.getTrailers = function(movieID){
 			}
 		})
 		.then(function(res){
-			console.log(res);
 			var youTubeKey = res.results[0].key;
-			console.log('does this work?');
 			app.displayTrailer(youTubeKey)
 		}); 
 	});
@@ -341,7 +344,6 @@ app.displayTrailer = function (youTubeKey) {
 // when user clicks on showTrailer it will exit theater movie
 app.hideTheater = function() {
 $('.showTrailer').on('click', function(){
-	console.log('ive been clicked');
 	$(this).addClass('hideTrailer');
 	$(this).empty();
 });

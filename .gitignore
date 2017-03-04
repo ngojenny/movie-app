@@ -3,3 +3,4 @@
 node_modules/
 public/styles/*.css
 public/scripts/*.js
+.DS_Store
