@@ -326,8 +326,9 @@ app.getTrailers = function(movieID){
 			}
 		})
 		.then(function(res){
-			var errorMsg = '<p class="small">Oops! This trailer is currently not available, please check another movie.</p>'
+			var errorMsg = '<p class="small" id="missing-trailer-error">Oops! This trailer is currently not available, please check another movie.</p>'
 			if(!res.results[0]) {
+				$('#missing-trailer-error').remove();
 				$('.infoContent').append(errorMsg);
 			}
 			var youTubeKey = res.results[0].key;
