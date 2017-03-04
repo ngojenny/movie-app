@@ -148,7 +148,7 @@ a {
 	color:white;
 	background: #919195;
 	transition: all 0.3s;
-	// position: relative;
+	position: relative;
 } 
 
 .closeMoreInfo .fa-times {
@@ -242,6 +242,10 @@ iframe {
 	left: 50%;
 	top: 50%;
 	transform: translate(-50%, -50%);
+}
+
+iframe:-webkit-full-screen {
+	transform: initial;
 }
 
 .closeMoreInfo {
