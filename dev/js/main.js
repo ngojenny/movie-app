@@ -326,6 +326,10 @@ app.getTrailers = function(movieID){
 			}
 		})
 		.then(function(res){
+			var errorMsg = '<p class="small">Oops! This trailer is currently not available, please check another movie.</p>'
+			if(!res.results[0]) {
+				$('.infoContent').append(errorMsg);
+			}
 			var youTubeKey = res.results[0].key;
 			app.displayTrailer(youTubeKey)
 		}); 
@@ -339,7 +343,7 @@ $('.close').on('click', function() {
 //This function will append the specific trailer on the page
 app.displayTrailer = function (youTubeKey) {
 	$('iframe').remove();
-	var videoFrame = '<iframe id="ytplayer" type="text/html" width="640" height="390" src="https://www.youtube.com/embed/' + youTubeKey + '?autoplay=1' + 'frameborder="0" />';
+	var videoFrame = '<iframe id="ytplayer" type="text/html" width="640" height="390" src="https://www.youtube.com/embed/' + youTubeKey + '?autoplay=1' + 'frameborder="0" allowfullscreen/>';
 
 	$('.moreInfo').append('<div class="showTrailer"></div>');
 	$('.showTrailer').append(videoFrame);
