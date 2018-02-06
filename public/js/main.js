@@ -195,7 +195,7 @@ app.displayMoreInfo = function (singleMovie) {
 			method: 'GET',
 			dataType: 'jsonp',
 			data: {
-				api_key: 'f43968b7420dc8dd5dc5be75cb2d3725'
+				api_key: ''
 			}
 		}).then(function (res) {
 			var castObjectArray = res.cast;
