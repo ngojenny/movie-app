@@ -67,7 +67,7 @@ app.getData = function (year) {
 		method: 'GET',
 		dataType: 'jsonp',
 		data: {
-			api_key: 'f43968b7420dc8dd5dc5be75cb2d3725',
+			api_key: '',
 			sort_by: 'vote_count.desc',
 			page: '1',
 			primary_release_year: year
@@ -80,7 +80,7 @@ app.getData = function (year) {
 		method: 'GET',
 		dataType: 'jsonp',
 		data: {
-			api_key: 'f43968b7420dc8dd5dc5be75cb2d3725',
+			api_key: '',
 			sort_by: 'vote_count.desc',
 			page: '2',
 			primary_release_year: year
@@ -271,7 +271,7 @@ app.displayMoreInfo = function (singleMovie) {
 			method: 'GET',
 			dataType: 'jsonp',
 			data: {
-				api_key: 'f43968b7420dc8dd5dc5be75cb2d3725'
+				api_key: ''
 			}
 		}).then(function (res) {
 			var castObjectArray = res.cast;
@@ -310,7 +310,8 @@ app.getTrailers = function (movieID) {
 			method: 'GET',
 			dataType: 'jsonp',
 			data: {
-				api_key: 'f43968b7420dc8dd5dc5be75cb2d3725'
+				api_key: '
+				'
 			}
 		}).then(function (res) {
 			var errorMsg = '<p class="small" id="missing-trailer-error">Oops! This trailer is currently not available, please check another movie.</p>';
